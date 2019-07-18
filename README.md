@@ -1,14 +1,14 @@
-Edge Service on ServiceStage  
-	概述  
-Edge Service是ServiceComb提供的JAVA网关服务开发框架。Edge Service作为整个微服务系统对外的接口，向最终用户提供服务，接入RESTful请求，转发给内部微服务。Edge Service以开发框架的形式提供，开发者可以非常简单的搭建一个Edge Service服务，通过简单的配置就可以定义路由转发规则。同时Edge Service支持扩展，服务映射、请求解析、加密解密、鉴权等逻辑都可以通过扩展实现。  
+Edge Service是ServiceComb提供的JAVA网关服务开发框架。Edge Service作为整个微服务系统对外的接口，向最终用户提供服务，接入RESTful请求，转发给内部微服务。Edge Service以开发框架的形式提供，开发者可以非常简单的搭建一个Edge Service服务，通过简单的配置就可以定义路由转发规则。同时Edge Service支持扩展，服务映射、请求解析、加密解密、鉴权等逻辑都可以通过扩展实现。 
+  
 Edge Service本身也是一个微服务，需遵守ServiceComb微服务开发的规则。其本身可以部署为多实例，前端使用负载均衡装置进行负载分发；也可以部署为主备，直接接入用户请求。开发者可以根据Edge Service承载的逻辑和业务访问量、组网情况来规划。  
+  
 本文将演示如何通过Edge Service作为网关服务对后端的微服务进行请求转发，场景如下：首先通过Web页面注册一个账号，然后使用该账号登录，其中：  
-	外部接口	内部接口  
-账号注册	POST: /rest/crm/user	POST: /user/v1/  
+	   外部接口	                        内部接口  
+账号注册	POST: /rest/crm/user	        POST: /user/v1/  
 账号登录	POST: /rest/crm/auth/login	POST: /auth/v1/login  
  
-
-	Edge Service开发  
+  
+Edge Service开发  
 Maven Setting相关配置：  
 1.profiles中增加如下配置。  
 <profile>
@@ -110,21 +110,10 @@ cors:
 maxAge: 3600
 		具体属性的含义，请参考：
 https://docs.servicecomb.io/java-chassis/zh_CN/general-development/CORS.html
-Edge Service部署  
-基于ServiceStage可以方便的将Edge Service部署到容器（如CCE）、虚拟机（如ECS）或无服务器（如CCI），同时支持源码部署、jar/war包部署或docker镜像包部署。  
-操作步骤：  
-1.打开创建应用界面：参考下图  
- 
-2.选择应用类型：选择ServiceComb，单击“创建应用”按钮  
- 
-3.填写基本信息：以docker镜像部署为例  
- 
-4.应用配置，主要是选择要部署的镜像（例如，选择上一步制作的hello-docker镜像）  
- 
-5.规格确认，提交后开始创建  
+  
  
  
-	Edge Service常见问题  
+Edge Service常见问题  
 1.部署后业务调不通？  
 按如下方式排查microservice.yaml文件相关配置：
 a)Edge Service和被转发微服务的APPLICATION_ID配置是否不一致
