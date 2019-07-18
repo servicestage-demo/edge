@@ -11,7 +11,8 @@ Edge Service本身也是一个微服务，需遵守ServiceComb微服务开发的
 Edge Service开发  
 Maven Setting相关配置：  
 1.profiles中增加如下配置。  
-```<profile>
+```
+<profile>
     <id>MyProfile</id>   //id自定义
     <repositories>
         <repository>
@@ -25,21 +26,26 @@ Maven Setting相关配置：
             </snapshots>
         </repository>
     </repositories>
-</profile>```
-  
-2.在mirrors节点中增加：  
+</profile>
+```  
+2.在mirrors节点中增加： 
+```
 <mirror>
     <id>huaweicloud</id>
     <mirrorOf>*,!HuaweiCloudSDK</mirrorOf>
     <url>https://mirrors.huaweicloud.com/repository/maven/</url>
 </mirror>  
+```
 3.新增activeProfiles配置
+```
 <activeProfiles>
     <activeProfile>MyProfile</activeProfile>   //跟1中的MyProfile保持一致
 </activeProfiles>
+```
 操作步骤：  
 1.基于ServiceComb框架创建一个微服务工程（可以直接拷贝这里的）
 只需要一个启动类，不用其他任何编码：
+```
 import org.apache.servicecomb.foundation.common.utils.BeanUtils;
 import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
 
@@ -49,10 +55,11 @@ public class ScmedgeserviceApplication {
 	    BeanUtils.init();
 	}
 }
-  
+  ```
 2.修改POM  
 a)添加华为云微服务的依赖管理配置：
-  <dependencyManagement>
+```
+<dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>com.huawei.paas.cse</groupId>
@@ -61,9 +68,11 @@ a)添加华为云微服务的依赖管理配置：
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-</dependencies>
-</dependencyManagement>  
+    </dependencies>
+</dependencyManagement> 
+```
 b)添加EdgeService的核心库，以及华为云微服务的核心依赖库  
+```
 <dependencies>
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
@@ -78,9 +87,11 @@ b)添加EdgeService的核心库，以及华为云微服务的核心依赖库
       <artifactId>cse-solution-service-engine</artifactId>
     </dependency>
   </dependencies>
+  ```
 Edge Service配置  
 Edge Service的配置也在microservice.yaml中完成，本文只聚焦Edge相关配置说明：  
 1.配置路由转发规则：  
+```
 cse:
   http:
     dispatcher:
@@ -98,33 +109,36 @@ cse:
               path: "/rest/crm/auth/login/v1/.*"
               microserviceName: auth
               versionRule: 0.0.1-2.0.0
+```
 crm-user配置项表示的含义是将请求路径为/rest/crm/user/.*的请求，转发到crm-user这个微服务，并且只转发到版本号为0.0.1-2.0.0的实例（不含2.0.0）。转发的时候URL为/user/v1/.*。path使用的是JDK的正则表达式，可以查看Pattern类的说明。prefixSegmentCount表示前缀的URL Segment数量，前缀不包含在转发的URL路径中。有三种形式的versionRule可以指定。2.0.0-3.0.0表示版本范围，含2.0.0，但不含3.0.0；2.0.0+表示大于2.0.0的版本，含2.0.0；2.0.0表示只转发到2.0.0版本。2，2.0等价于2.0.0。  
 2.跨域配置  
 跨域资源共享(CORS, Cross-Origin Resource Sharing)允许Web服务器进行跨域访问控制，使浏览器可以更安全地进行跨域数据传输。当用户需要从浏览器上跨域发送REST请求时就有可能要用到CORS机制，接收跨域请求的微服务需要开启CORS支持。
+```
 cors:
     enabled: true
     origin: "http://*.*.yourcompany.com"
     allowCredentials: true
     allowedHeader: "appid,content-type"
     allowedMethod: GET,POST,PUT,DELETE
-maxAge: 3600
-		具体属性的含义，请参考：
+maxAge: 3600  
+```
+具体属性的含义，请参考：
 https://docs.servicecomb.io/java-chassis/zh_CN/general-development/CORS.html
   
  
  
 Edge Service常见问题  
-1.部署后业务调不通？  
-按如下方式排查microservice.yaml文件相关配置：
-a)Edge Service和被转发微服务的APPLICATION_ID配置是否不一致
-b)Edge Service和被转发微服务的service_description.environment配置是否不一致
-c)转发规则里的path、microserviceName、versionRule是否配置正确
-按如下方式在ServiceStage上排查：
-d)Edge Service和被转发微服务是否注册到同一个微服务引擎
-e)Edge Service和被转发微服务是否部署且注册成功
-f)Edge Service的监听端口是否和其他微服务冲突
-2.跨域不生效？  
-a)Origin配置的表达式是否正确
-b)Origin表达式不支持通过逗号分隔配置多个地址
-c)header里是否有自定义字段，需要在allowedHeader里配置，如上例中的appid
-d)相关接口的操作是否在allowedMethod上配置正确
+1.部署后业务调不通？    
+按如下方式排查microservice.yaml文件相关配置：  
+a)Edge Service和被转发微服务的APPLICATION_ID配置是否不一致  
+b)Edge Service和被转发微服务的service_description.environment配置是否不一致  
+c)转发规则里的path、microserviceName、versionRule是否配置正确  
+按如下方式在ServiceStage上排查：  
+d)Edge Service和被转发微服务是否注册到同一个微服务引擎  
+e)Edge Service和被转发微服务是否部署且注册成功  
+f)Edge Service的监听端口是否和其他微服务冲突  
+2.跨域不生效？    
+a)Origin配置的表达式是否正确  
+b)Origin表达式不支持通过逗号分隔配置多个地址  
+c)header里是否有自定义字段，需要在allowedHeader里配置，如上例中的appid  
+d)相关接口的操作是否在allowedMethod上配置正确  
