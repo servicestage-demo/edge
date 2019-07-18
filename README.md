@@ -11,7 +11,7 @@ Edge Service本身也是一个微服务，需遵守ServiceComb微服务开发的
 Edge Service开发  
 Maven Setting相关配置：  
 1.profiles中增加如下配置。  
-<profile>
+```<profile>
     <id>MyProfile</id>   //id自定义
     <repositories>
         <repository>
@@ -25,7 +25,7 @@ Maven Setting相关配置：
             </snapshots>
         </repository>
     </repositories>
-</profile>
+</profile>```
   
 2.在mirrors节点中增加：  
 <mirror>
