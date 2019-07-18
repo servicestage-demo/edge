@@ -136,9 +136,9 @@ https://docs.servicecomb.io/java-chassis/zh_CN/general-development/CORS.html
   
 >>按如下方式排查microservice.yaml文件相关配置：  
   
->>>a)Edge Service和被转发微服务的APPLICATION_ID配置是否不一致  
+>>>a)Edge Service和被转发微服务的APPLICATION_ID配置必须一致  
   
->>>b)Edge Service和被转发微服务的service_description.environment配置是否不一致  
+>>>b)Edge Service和被转发微服务的service_description.environment配置必须一致  
   
 >>>c)转发规则里的path、microserviceName、versionRule是否配置正确  
   
@@ -154,7 +154,7 @@ https://docs.servicecomb.io/java-chassis/zh_CN/general-development/CORS.html
   
 >>a)Origin配置的表达式是否正确  
   
->>b)Origin表达式不支持通过逗号分隔配置多个地址  
+>>b)Origin表达式不支持通过逗号分隔配置多个地址，如需配置多个可使用通配符，参考源码示例  
   
 >>c)header里是否有自定义字段，需要在allowedHeader里配置，如上例中的appid 
   
