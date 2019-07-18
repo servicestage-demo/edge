@@ -6,7 +6,7 @@ Edge Service本身也是一个微服务，需遵守ServiceComb微服务开发的
 	   外部接口	                        内部接口  
 账号注册	POST: /rest/crm/user	        POST: /user/v1/  
 账号登录	POST: /rest/crm/auth/login	POST: /auth/v1/login  
- `![](/edge.jpg)`
+ `![](https://github.com/servicestage-demo/edge/blob/master/edge.jpg)`
   
 Edge Service开发  
 Maven Setting相关配置：  
