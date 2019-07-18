@@ -4,6 +4,12 @@ Edge Service本身也是一个微服务，需遵守ServiceComb微服务开发的
   
 本文将演示如何通过Edge Service作为网关服务对后端的微服务进行请求转发，场景如下：首先通过Web页面注册一个账号，然后使用该账号登录，其中：  
   
+Name | Academy | score 
+- | :-: | -: 
+Harry Potter | Gryffindor| 90 
+Hermione Granger | Gryffindor | 100 
+Draco Malfoy | Slytherin | 90
+  
 操作|外部接口|内部接口 
 - | :-: | -: 
 账号注册|POST: /rest/crm/user|POST: /user/v1/ 
