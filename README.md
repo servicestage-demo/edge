@@ -120,7 +120,7 @@ cors:
     allowCredentials: true
     allowedHeader: "appid,content-type"
     allowedMethod: GET,POST,PUT,DELETE
-maxAge: 3600  
+    maxAge: 3600  
 ```
 具体属性的含义，请参考：
 https://docs.servicecomb.io/java-chassis/zh_CN/general-development/CORS.html
@@ -128,17 +128,17 @@ https://docs.servicecomb.io/java-chassis/zh_CN/general-development/CORS.html
  
  
 Edge Service常见问题  
-1.部署后业务调不通？    
-按如下方式排查microservice.yaml文件相关配置：  
-a)Edge Service和被转发微服务的APPLICATION_ID配置是否不一致  
-b)Edge Service和被转发微服务的service_description.environment配置是否不一致  
-c)转发规则里的path、microserviceName、versionRule是否配置正确  
-按如下方式在ServiceStage上排查：  
-d)Edge Service和被转发微服务是否注册到同一个微服务引擎  
-e)Edge Service和被转发微服务是否部署且注册成功  
-f)Edge Service的监听端口是否和其他微服务冲突  
-2.跨域不生效？    
-a)Origin配置的表达式是否正确  
-b)Origin表达式不支持通过逗号分隔配置多个地址  
-c)header里是否有自定义字段，需要在allowedHeader里配置，如上例中的appid  
-d)相关接口的操作是否在allowedMethod上配置正确  
+>1.部署后业务调不通？    
+>>按如下方式排查microservice.yaml文件相关配置：  
+>>>a)Edge Service和被转发微服务的APPLICATION_ID配置是否不一致  
+>>>b)Edge Service和被转发微服务的service_description.environment配置是否不一致  
+>>>c)转发规则里的path、microserviceName、versionRule是否配置正确  
+>>按如下方式在ServiceStage上排查：  
+>>>d)Edge Service和被转发微服务是否注册到同一个微服务引擎  
+>>>e)Edge Service和被转发微服务是否部署且注册成功  
+>>>f)Edge Service的监听端口是否和其他微服务冲突  
+>2.跨域不生效？    
+>>a)Origin配置的表达式是否正确  
+>>b)Origin表达式不支持通过逗号分隔配置多个地址  
+>>c)header里是否有自定义字段，需要在allowedHeader里配置，如上例中的appid  
+>>d)相关接口的操作是否在allowedMethod上配置正确  
