@@ -3,9 +3,10 @@ Edge Service是ServiceComb提供的JAVA网关服务开发框架。Edge Service�
 Edge Service本身也是一个微服务，需遵守ServiceComb微服务开发的规则。其本身可以部署为多实例，前端使用负载均衡装置进行负载分发；也可以部署为主备，直接接入用户请求。开发者可以根据Edge Service承载的逻辑和业务访问量、组网情况来规划。  
   
 本文将演示如何通过Edge Service作为网关服务对后端的微服务进行请求转发，场景如下：首先通过Web页面注册一个账号，然后使用该账号登录，其中：  
-	   外部接口	                        内部接口  
-账号注册	POST: /rest/crm/user	        POST: /user/v1/  
-账号登录	POST: /rest/crm/auth/login	POST: /auth/v1/login  
+  
+	   |外部接口|	                 |内部接口 | 
+|账号注册	POST: /rest/crm/user|	        |POST: /user/v1/  |
+|账号登录	POST: /rest/crm/auth/login	POST: /auth/v1/login  |
   
  ![](https://github.com/servicestage-demo/edge/blob/master/edge.jpg)
   
