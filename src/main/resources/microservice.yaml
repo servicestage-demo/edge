@@ -1,0 +1,47 @@
+APPLICATION_ID: default
+service_description:
+  name: edge
+  version: 0.0.1
+  environment: testing
+  properties:
+    allowCrossApp: false
+cse:
+  service:
+    registry:
+      address: http://127.0.0.1:30100
+      instance:
+        watch: false
+  #monitor:
+    #client:
+      #serverUri: https://cse.cn-east-2.myhuaweicloud.com
+  rest:
+    address: 0.0.0.0:18084
+  #When a local project is deployed as a container outside a cluster, you need to delete all monitor and credentials comments and configure the AK/SK.
+  #credentials:
+    #accessKey: ak
+    #secretKey: sk
+    #akskCustomCipher: default
+    #project: cn-east-2
+  http:
+    dispatcher:
+      edge:
+        url:
+          enabled: true
+          mappings:
+            crm-user:
+              prefixSegmentCount: 2
+              path: "/rest/user/.*"
+              microserviceName: userservice
+              versionRule: 0.0.1-2.0.0
+            crm-auth:
+              prefixSegmentCount: 2
+              path: "/rest/auth/.*"
+              microserviceName: authservice
+              versionRule: 0.0.1-2.0.0
+  cors:
+    enabled: true
+    origin: "http://*.*.yourcompany.com"
+    allowCredentials: true
+    allowedHeader: "appid,content-type"
+    allowedMethod: GET,POST,PUT,DELETE
+    maxAge: 3600

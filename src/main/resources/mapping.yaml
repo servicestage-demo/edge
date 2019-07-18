@@ -1,0 +1,6 @@
+service_description_environment:
+  - service_description.environment
+service_description_name:
+  - service_description.name
+service_description_version:
+  - service_description.version
